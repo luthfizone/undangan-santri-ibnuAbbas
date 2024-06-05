@@ -1,13 +1,7 @@
 import fs from "fs";
+import { santriSmp } from "./smp.mjs";
 
-let data = [
-    // dummy data
-    {id: "", name: "Fatih Mafaizidin"},
-    {id: "", name: "Muhammad Luthfi"},
-    {id: "", name: "Faras Majid"},
-    {id: "", name: "A'an Hidayat"},
-    {id: "", name: "Muhammad Rakha Izdihar"}
-];
+let data = santriSmp
 
 let result = {};
 
