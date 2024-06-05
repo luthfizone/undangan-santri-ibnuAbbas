@@ -9,6 +9,7 @@ export default {
         "accent": "#508C4C",
       },
       backgroundColor: {
+        "primary": "#252525",
         "accent": "#508C4C",
       },
       backgroundImage: {
@@ -21,6 +22,9 @@ export default {
         'primary': ['Inika', 'serif'],
         'secondary': ['Montserrat', 'sans-serif'],
         'accent': ['Ingrid Darling', 'cursive'],
+      },
+      height: {
+        'section': 800,
       }
     },
   },
