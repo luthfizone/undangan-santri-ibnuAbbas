@@ -11,6 +11,7 @@ export default {
       backgroundColor: {
         "primary": "#252525",
         "accent": "#508C4C",
+        "accent-gradient": "var(--greenish-gradient)",
       },
       backgroundImage: {
         "accent-gradient": "var(--greenish-gradient)",
