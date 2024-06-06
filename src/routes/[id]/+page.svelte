@@ -3,6 +3,9 @@
 	import Gallery from "$lib/components/Gallery.svelte";
 	// import Lazy from "$lib/components/Lazy.svelte";
 	import { fade, fly, scale, slide } from "svelte/transition";
+	import { ConfirmationType, type RSVPConfirmation } from "../../constants/rsvp_confirmation";
+	import RsvpMessage from "$lib/components/RSVPMessage.svelte";
+	import PaginationNavigator from "$lib/components/PaginationNavigator.svelte";
 
     // transition variables
     let invitationInfoTransition: boolean = false;
@@ -10,6 +13,7 @@
     let susunanAcaraTransition: boolean = false;
     let galeriTransition: boolean = false;
     let quoteTransition: boolean = false;
+    let rsvpTransition: boolean = false;
     let penutup1Transition: boolean = false;
     let penutup2Transition: boolean = false;
 
@@ -23,6 +27,20 @@
         "/img/galleries/img-6.png",
         "/img/galleries/img-7.png",
         "/img/galleries/img-8.png",
+    ]
+
+    // RSVP confirmations
+    const rsvpConfirmations: RSVPConfirmation[] = [
+        {
+            name: "Alfan Hidayat",
+            message: "Barakallahu fii ilmik.. Alhamdulillah semoga ilmunya bermanfaat bagi kemaslahatan orang banyak dan jg diri sendiri.. dan smg hafalannya selalu terjaga sepanjang hayat.. sukses selalu dunia akhirat..",
+            confirmation: ConfirmationType.HADIR,
+        },
+        {
+            name: "Luthfi Akbar",
+            message: "Barakallahu fii ilmik.. Alhamdulillah semoga ilmunya bermanfaat bagi kemaslahatan orang banyak dan jg diri sendiri.. dan smg hafalannya selalu terjaga sepanjang hayat.. sukses selalu dunia akhirat..",
+            confirmation: ConfirmationType.HADIR,
+        },
     ]
 
     // helper
@@ -59,6 +77,8 @@
                     galeriTransition = true;
                 } else if (elementId === 'quoteTransition') {
                     quoteTransition = true;
+                } else if (elementId === 'rsvpTransition') {
+                    rsvpTransition = true;
                 } else if (elementId === 'penutup1Transition') {
                     penutup1Transition = true;
                 } else if (elementId === 'penutup2Transition') {
@@ -153,6 +173,52 @@
         {/if}
     </div>
 
+    <!-- RSVP -->
+    <div id="rsvpTransition" use:actionWhenInViewport class="rsvp flex flex-col items-center mb-40 px-5">
+        {#if rsvpTransition}
+        <h2 class="text-accent text-center font-bold mb-2" transition:scale={{delay: 500, duration: 500}}>Wishes & RSVP</h2>
+        <p class="text-primary text-center">Ucapan Selamat & Konfirmasi Kehadiran</p>
+        <form action="" class="w-full mb-10">
+            <div class="mb-4 w-full">
+                <input
+                    type="text"
+                    placeholder="Nama"
+                    name="nama"
+                    id="nama"
+                    class="w-full bg-white bg-opacity-25 focus:bg-opacity-50 px-4 py-2 border-none rounded outline-secondary focus:outline-0 text-primary"
+                />
+            </div>
+            <div class="mb-4">
+                <textarea
+                    name="ucapan"
+                    placeholder="Ucapan"
+                    id="ucapan"
+                    class="w-full bg-white bg-opacity-25 focus:bg-opacity-50 px-4 py-2 border-none rounded outline-secondary focus:outline-0 text-primary min-h-40"
+                ></textarea>
+            </div>
+            <div class="mb-4">
+                <select name="konfirmasi-kehadiran" id="konfirmasi-kehadiran" class="w-full bg-white bg-opacity-25 focus:bg-opacity-50 px-4 py-2 border-none rounded outline-secondary focus:outline-0 text-primary text-opacity-50">
+                    <option value="konfirmasi-kehadiran" selected class="w-full bg-primary text-primary">Konfirmasi Kehadiran</option>
+                    <option value="hadir">Hadir</option>
+                    <option value="tidak-hadir">Tidak Hadir</option>
+                    <option value="rag-ragu">Ragu-Ragu</option>
+                </select>
+            </div>
+            <button
+                type="submit"
+                class="w-full flex gap-2 items-center justify-center px-8 py-2 rounded font-semibold text-primary bg-gradient-to-r from-green-600 to-green-400"
+                >KIRIM</button
+            >
+        </form>
+        <div class="rsvps flex flex-col gap-4">
+            {#each rsvpConfirmations as rsvp, i}
+                <RsvpMessage {rsvp} />
+            {/each}
+            <PaginationNavigator />
+        </div>
+        {/if}
+    </div>
+
     <!-- penutup -->
     <div class="penutup flex flex-col items-center gap-24 px-5">
         <div id="penutup1Transition" use:actionWhenInViewport class="penutup-1 flex flex-col items-center gap-5 text-primary text-center">
@@ -190,5 +256,8 @@
         background-image: url("/img/bg-info.png");
         background-size: cover;
         background-repeat: no-repeat;
+    }
+    select option {
+        background: var(--bg-primary);
     }
 </style>
