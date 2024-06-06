@@ -122,7 +122,7 @@
             <img src="/img/infos/info-alamat.png" alt="">
         </div>
         <div transition:scale={{delay: 3000}}>
-            <Button text="Buka Map" icon="fa-solid fa-location-dot" on:click={() => openNewTab('TODO')} />
+            <Button text="Buka Map" icon="fa-solid fa-location-dot" on:click={() => openNewTab('https://maps.app.goo.gl/oXiRefHXZBYL3Cyg8')} />
         </div>
         {/if}
     </div>
@@ -135,11 +135,11 @@
     </div>
 
     <!-- susunan acara -->
-    <div id="susunanAcaraTransition" use:actionWhenInViewport class="susunan-acara p-8 mb-20">
+    <div id="susunanAcaraTransition" use:actionWhenInViewport class="susunan-acara p-4 mb-20">
         {#if susunanAcaraTransition}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-        <img src="/img/susunan-acara.png" alt="" class="w-full" on:click={() => downloadImage('/img/susunan-acara.png', 'Susunan Acara.png')} transition:fade={{delay: 1500, duration: 1000}}>
+        <img src="/img/susunan-acara.png" alt="" class="w-full" on:click={() => downloadImage('/img/susunan-acara.png', 'Susunan Acara.png')} transition:scale={{delay: 2000, duration: 500}}>
         {/if}
     </div>
 
@@ -147,9 +147,9 @@
     <div id="galeriTransition" use:actionWhenInViewport class="galeri flex flex-col items-center mb-40">
         {#if galeriTransition}
         <h2 class="text-primary text-center mb-[30px]" transition:scale={{delay: 500, duration: 500}}>Galeri</h2>
-        <div class="galleries flex flex-col justify-center gap-[30px] px-[30px] mb-[30px]" transition:fade={{delay: 1000, duration: 1000}}>
+        <div class="galleries flex flex-col justify-center gap-[30px] px-[30px] mb-[30px]" transition:scale={{delay: 1000, duration: 1000}}>
             {#each galleryAssetUrls as assetUrl, i}
-            <div transition:fade={{ delay: 1000 + (i * 1000), duration: 1000 }}>
+            <div transition:scale={{ delay: 1000 + (i * 1000), duration: 1000 }}>
                 <Gallery imgUrl={assetUrl} />
             </div>
             {/each}
@@ -159,14 +159,14 @@
     </div>
 
     <!-- quote -->
-    <div id="quoteTransition" use:actionWhenInViewport class="quote flex flex-col items-center px-10 mb-40">
+    <div id="quoteTransition" use:actionWhenInViewport class="quote flex flex-col items-center px-4 mb-40">
         {#if quoteTransition}
         <img src="/img/motif-green-islamic-1.png" alt="" transition:fade={{delay: 500, duration: 1000}}>
         <div class="content flex flex-col items-center gap-10 mt-20 mb-20">
             <img src="/img/illustration-graduation.png" alt="" transition:scale={{delay: 500, duration: 1000}}>
             <div class="texts text-primary text-center" transition:fade={{delay: 1000, duration: 1000}}>
-                <p class="mb-10 italic opacity-75">“Esok mungkin tak ada lagi tawa & tangis bersama. Tapi ingatlah, selama 3 hingga 6 tahun kita pernah bersama-sama. Jangan jadikan perpisahan ini sebagai alasan untuk memutus tali ukhuwah islamiyah. Jadikan perpisahan ini sebagai hal yang justru meningkatkan solidaritas kita. Kerjarlah mimpi kalian dan sampai bertemu lagi di titik terbaik menurut takdir Allah SWT”</p>
-                <p>- Alfan Fikri Abdulhakim</p>
+                <p class="mb-10 italic opacity-75">“Selamat kepada para wisudawan wisudawati, dan Kami titipkan kepada wali santri, kami telah berjuang dengan segala keterbatasan kami untuk mendidik putra-putri bapak ibu semuanya sampai marhalah mereka lulus. Mereka sejatinya, secara tuntutan syariah, sama persis dengan kita. Sebagai Da'i. Sebagai Murabbi. Sebagai Mujahid. Maka kami mohon bapak ibu untuk mengikutsertakan mereka dalam dunia dakwah, dalam dunia perbaikan masyarakat...”</p>
+                <p>(Pesan Allahuyarham KH. Mu'inudinillah Basri pada Wisuda Santri PPTQ Ibnu Abbas Klaten tahun 2018)</p>
             </div>
         </div>
         <img src="/img/motif-green-islamic-1.png" class="rotate-180" alt="" transition:fade={{delay: 500, duration: 1000}}>
@@ -176,9 +176,9 @@
     <!-- RSVP -->
     <div id="rsvpTransition" use:actionWhenInViewport class="rsvp flex flex-col items-center mb-40 px-5">
         {#if rsvpTransition}
-        <h2 class="text-accent text-center font-bold mb-2" transition:scale={{delay: 500, duration: 500}}>Wishes & RSVP</h2>
-        <p class="text-primary text-center">Ucapan Selamat & Konfirmasi Kehadiran</p>
-        <form action="" class="w-full mb-10">
+        <h2 class="text-accent text-center font-bold mb-2" transition:fade={{delay: 500, duration: 500}}>Wishes & RSVP</h2>
+        <p class="text-primary text-center" transition:fade={{delay: 500, duration: 500}}>Ucapan Selamat & Konfirmasi Kehadiran</p>
+        <form action="" class="w-full mb-10" transition:fade={{delay: 500, duration: 500}}>
             <div class="mb-4 w-full">
                 <input
                     type="text"
@@ -210,7 +210,7 @@
                 >KIRIM</button
             >
         </form>
-        <div class="rsvps flex flex-col gap-4">
+        <div class="rsvps flex flex-col gap-4" transition:fade={{delay: 500, duration: 500}}>
             {#each rsvpConfirmations as rsvp, i}
                 <RsvpMessage {rsvp} />
             {/each}
@@ -232,7 +232,7 @@
         <div id="penutup2Transition" use:actionWhenInViewport class="penutup-2 flex flex-col items-center gap-5 text-primary text-center">
             {#if penutup2Transition}
             <h1 class="font-accent" transition:fade={{delay: 500, duration: 1000}}>Terimakasih</h1>
-            <p class="opacity-75" >Hormat kami,</p>
+            <p class="opacity-75" transition:fade={{delay: 500, duration: 1000}}>Hormat kami,</p>
             <p class="opacity-75" transition:fade={{delay: 500, duration: 1000}}>Direktur PPTQ Ibnu Abbas Klaten</p>
             <h2 style="font-size: 21px;" transition:fade={{delay: 500, duration: 1000}}>Muhammad Uqbah Aziz, Lc., MH</h2>
             <p class="opacity-75" transition:fade={{delay: 500, duration: 1000}}>Dan Keluarga Besar<br>Pondok Pesantren Tahfidzul Qur'an<br>Ibnu Abbas Klaten</p>
