@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Button from "$lib/components/Button.svelte";
 	import Gallery from "$lib/components/Gallery.svelte";
-	// import Lazy from "$lib/components/Lazy.svelte";
 	import { fade, fly, scale, slide } from "svelte/transition";
 	import { ConfirmationType, type RSVPConfirmation } from "../../constants/rsvp_confirmation";
 	import RsvpMessage from "$lib/components/RSVPMessage.svelte";
 	import PaginationNavigator from "$lib/components/PaginationNavigator.svelte";
+    import { rsvps, createRSVP, loadRSVPS } from "../../stores/rsvp";
 
     // transition variables
     let invitationInfoTransition: boolean = false;
@@ -29,20 +29,33 @@
         "/img/galleries/img-8.png",
     ]
 
-    // RSVP confirmations
-    const rsvpConfirmations: RSVPConfirmation[] = [
-        {
-            name: "Alfan Hidayat",
-            message: "Barakallahu fii ilmik.. Alhamdulillah semoga ilmunya bermanfaat bagi kemaslahatan orang banyak dan jg diri sendiri.. dan smg hafalannya selalu terjaga sepanjang hayat.. sukses selalu dunia akhirat..",
+    // rsvp
+    let rsvp: RSVPConfirmation = {
+        name: "",
+        confirmation: ConfirmationType.HADIR,
+        message: ""
+    }
+    const submitRsvp = async (e: any) => {
+        e.preventDefault();
+        await createRSVP(rsvp);
+        rsvp = {
+            name: "",
             confirmation: ConfirmationType.HADIR,
-        },
-        {
-            name: "Luthfi Akbar",
-            message: "Barakallahu fii ilmik.. Alhamdulillah semoga ilmunya bermanfaat bagi kemaslahatan orang banyak dan jg diri sendiri.. dan smg hafalannya selalu terjaga sepanjang hayat.. sukses selalu dunia akhirat..",
-            confirmation: ConfirmationType.HADIR,
-        },
-    ]
+            message: ""
+        }
+        await loadRSVPS();
+    }
+    let paginationIndex: number = 1;
+    $: {
+        // prevent index out arrays
+        if (paginationIndex > Math.ceil($rsvps.length / 5)) {
+            paginationIndex = 1;
+        } else if (paginationIndex < 1) {
+            paginationIndex = Math.ceil($rsvps.length / 5);
+        }
+    }
 
+    
     // helper
 	const scrollToSection = (sectionId: string) => {
 		const section = document.getElementById(sectionId);
@@ -165,7 +178,7 @@
         <div class="content flex flex-col items-center gap-10 mt-20 mb-20">
             <img src="/img/illustration-graduation.png" alt="" transition:scale={{delay: 500, duration: 1000}}>
             <div class="texts text-primary text-center" transition:fade={{delay: 1000, duration: 1000}}>
-                <p class="mb-10 italic opacity-75">“Selamat kepada para wisudawan wisudawati, dan Kami titipkan kepada wali santri, kami telah berjuang dengan segala keterbatasan kami untuk mendidik putra-putri bapak ibu semuanya sampai marhalah mereka lulus. Mereka sejatinya, secara tuntutan syariah, sama persis dengan kita. Sebagai Da'i. Sebagai Murabbi. Sebagai Mujahid. Maka kami mohon bapak ibu untuk mengikutsertakan mereka dalam dunia dakwah, dalam dunia perbaikan masyarakat...”</p>
+                <p class="mb-10 italic opacity-75">“Selamat kepada para wisudawan wisudawati, dan kami titipkan kepada wali santri, kami telah berjuang dengan segala keterbatasan kami untuk mendidik putra-putri bapak ibu semuanya sampai marhalah mereka lulus. Mereka sejatinya, secara tuntutan syariah, sama persis dengan kita. Sebagai Da'i. Sebagai Murabbi. Sebagai Mujahid. Maka kami mohon bapak ibu untuk mengikutsertakan mereka dalam dunia dakwah, dalam dunia perbaikan masyarakat...”</p>
                 <p>(Pesan Allahuyarham KH. Mu'inudinillah Basri pada Wisuda Santri PPTQ Ibnu Abbas Klaten tahun 2018)</p>
             </div>
         </div>
@@ -177,7 +190,7 @@
     <div id="rsvpTransition" use:actionWhenInViewport class="rsvp flex flex-col items-center mb-40 px-5">
         {#if rsvpTransition}
         <h2 class="text-accent text-center font-bold mb-2" transition:fade={{delay: 500, duration: 500}}>Wishes & RSVP</h2>
-        <p class="text-primary text-center" transition:fade={{delay: 500, duration: 500}}>Ucapan Selamat & Konfirmasi Kehadiran</p>
+        <p class="text-primary text-center mb-8" transition:fade={{delay: 500, duration: 500}}>Ucapan Selamat & Konfirmasi Kehadiran</p>
         <form action="" class="w-full mb-10" transition:fade={{delay: 500, duration: 500}}>
             <div class="mb-4 w-full">
                 <input
@@ -185,6 +198,7 @@
                     placeholder="Nama"
                     name="nama"
                     id="nama"
+                    bind:value={rsvp.name}
                     class="w-full bg-white bg-opacity-25 focus:bg-opacity-50 px-4 py-2 border-none rounded outline-secondary focus:outline-0 text-primary"
                 />
             </div>
@@ -193,28 +207,34 @@
                     name="ucapan"
                     placeholder="Ucapan"
                     id="ucapan"
+                    bind:value={rsvp.message}
                     class="w-full bg-white bg-opacity-25 focus:bg-opacity-50 px-4 py-2 border-none rounded outline-secondary focus:outline-0 text-primary min-h-40"
                 ></textarea>
             </div>
             <div class="mb-4">
-                <select name="konfirmasi-kehadiran" id="konfirmasi-kehadiran" class="w-full bg-white bg-opacity-25 focus:bg-opacity-50 px-4 py-2 border-none rounded outline-secondary focus:outline-0 text-primary text-opacity-50">
+                <select name="konfirmasi-kehadiran" id="konfirmasi-kehadiran" bind:value={rsvp.confirmation} class="w-full bg-white bg-opacity-25 focus:bg-opacity-50 px-4 py-2 border-none rounded outline-secondary focus:outline-0 text-primary text-opacity-50">
                     <option value="konfirmasi-kehadiran" selected class="w-full bg-primary text-primary">Konfirmasi Kehadiran</option>
-                    <option value="hadir">Hadir</option>
-                    <option value="tidak-hadir">Tidak Hadir</option>
-                    <option value="rag-ragu">Ragu-Ragu</option>
+                    <option value="{ConfirmationType.HADIR}">Hadir</option>
+                    <option value="{ConfirmationType.TIDAK_HADIR}">Tidak Hadir</option>
+                    <option value="{ConfirmationType.RAG_RAGU}">Ragu-Ragu</option>
                 </select>
             </div>
             <button
                 type="submit"
                 class="w-full flex gap-2 items-center justify-center px-8 py-2 rounded font-semibold text-primary bg-gradient-to-r from-green-600 to-green-400"
+                on:click={submitRsvp}
                 >KIRIM</button
             >
         </form>
-        <div class="rsvps flex flex-col gap-4" transition:fade={{delay: 500, duration: 500}}>
-            {#each rsvpConfirmations as rsvp, i}
-                <RsvpMessage {rsvp} />
+        <div class="rsvps w-full flex flex-col gap-4" transition:fade={{delay: 500, duration: 500}}>
+            {#each $rsvps as rsvp, i}
+                {#if i >= ((paginationIndex * 5) - 5) && i < paginationIndex * 5}
+                    <RsvpMessage {rsvp} />
+                {/if}
             {/each}
-            <PaginationNavigator />
+            {#if $rsvps.length > 5}
+                <PaginationNavigator bind:index={paginationIndex} />
+            {/if}
         </div>
         {/if}
     </div>

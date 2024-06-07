@@ -1,4 +1,5 @@
 export interface RSVPConfirmation {
+    id?: number,
     name: string;
     message: string;
     confirmation: ConfirmationType,

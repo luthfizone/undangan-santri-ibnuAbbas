@@ -1,11 +1,12 @@
 <script lang="ts">
+    export let index: number;
 
     const prevHandler = () => {
-        // TODO
+        index--;
     }
 
     const nextHandler = () => {
-        // TODO
+        index++;
     }
 
 </script>
