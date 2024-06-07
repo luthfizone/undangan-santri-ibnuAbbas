@@ -6,6 +6,7 @@
 	import RsvpMessage from "$lib/components/RSVPMessage.svelte";
 	import PaginationNavigator from "$lib/components/PaginationNavigator.svelte";
     import { rsvps, createRSVP, loadRSVPS } from "../../stores/rsvp";
+    import { numDataPerPage } from "../../constants/numbers";
 
     // transition variables
     let invitationInfoTransition: boolean = false;
@@ -48,10 +49,10 @@
     let paginationIndex: number = 1;
     $: {
         // prevent index out arrays
-        if (paginationIndex > Math.ceil($rsvps.length / 5)) {
+        if (paginationIndex > Math.ceil($rsvps.length / numDataPerPage)) {
             paginationIndex = 1;
         } else if (paginationIndex < 1) {
-            paginationIndex = Math.ceil($rsvps.length / 5);
+            paginationIndex = Math.ceil($rsvps.length / numDataPerPage);
         }
     }
 
@@ -228,11 +229,11 @@
         </form>
         <div class="rsvps w-full flex flex-col gap-4" transition:fade={{delay: 500, duration: 500}}>
             {#each $rsvps as rsvp, i}
-                {#if i >= ((paginationIndex * 5) - 5) && i < paginationIndex * 5}
+                {#if i >= ((paginationIndex * numDataPerPage) - numDataPerPage) && i < paginationIndex * numDataPerPage}
                     <RsvpMessage {rsvp} />
                 {/if}
             {/each}
-            {#if $rsvps.length > 5}
+            {#if $rsvps.length > numDataPerPage}
                 <PaginationNavigator bind:index={paginationIndex} />
             {/if}
         </div>
