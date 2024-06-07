@@ -7,6 +7,14 @@
 	import PaginationNavigator from "$lib/components/PaginationNavigator.svelte";
     import { rsvps, createRSVP, loadRSVPS } from "../../stores/rsvp";
     import { numDataPerPage } from "../../constants/numbers";
+    import { page } from "$app/stores";
+    import santriData from "../../data/outputSantriName.json";
+
+    // get santri's name by param id
+    const data = santriData;
+
+    const paramId = $page.params.id;
+    const name: string = data[paramId as keyof typeof data];
 
     // transition variables
     let invitationInfoTransition: boolean = false;
@@ -114,7 +122,7 @@
         <img src="/img/bg-welcome-ibnuabbas.png" class="w-full" alt="bg-bg-welcome-ibnuabbas">
         <div class="texts mt-20 mb-10 flex flex-col gap-4 justify-center text-center text-primary">
             <h2 style="font-size: 18px;">Yth. Bapak & Ibu Wali Santri</h2>
-            <h1 class="font-secondary" style="font-size: 24px;">Muhammad Luthfi Akbar</h1>
+            <h1 class="font-secondary px-2" style="font-size: 24px;">{name ? name : 'Santriwan/Santriwati'}</h1>
             <p>di tempat</p>
         </div>
         <Button text="Buka Undangan" icon="fa-solid fa-envelope-open" on:click={() => scrollToSection('invitationInfoTransition')} />
