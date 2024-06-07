@@ -477,4 +477,5 @@ export let formatDataSantri = [
     {id:'', name: "Rahmadhani"},
     {id:'', name: "Varradilla Arreva Zhavyra Pytri"},
     {id:'', name: "Zhalfa Izdihar Firahmatillah"},
+    
 ];
