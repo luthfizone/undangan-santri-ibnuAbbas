@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-    --greenish-gradient: linear-gradient(90deg, #508C4C 100%, #74BF6F 100%);
+    --greenish-gradient: linear-gradient(90deg, #508C4C 100%, #74BF6F 0%);
+    --bg-primary: #252525;
 
     body {
         font-family: "Inika", serif;
