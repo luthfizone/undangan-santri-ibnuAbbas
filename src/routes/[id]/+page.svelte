@@ -113,7 +113,7 @@
 </script>
 
 <!-- HTML -->
-<div class="container flex flex-col w-[375px]">
+<div class="container flex flex-col w-[375px] mx-auto">
 	<div class="container w-full mx-auto bg-primary h-full">
 		<!-- welcome -->
 		<div class="welcome flex flex-col items-center w-full h-section mb-40">
