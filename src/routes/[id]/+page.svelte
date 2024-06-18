@@ -140,14 +140,14 @@
 		>
 			{#if invitationInfoTransition}
 				<div
-					class="titles text-center text-secondary flex flex-col items-center gap-5 mb-10"
+					class="titles text-center text-secondary flex flex-col items-center gap-5 mb-2.5"
 					transition:fade={{ delay: 500 }}
 				>
 					<!-- <h2>Kami mengundang Anda, untuk menghadiri acara</h2> -->
 					<!-- <h2><span class="text-accent">Wisuda Pondok Pesantren<br>Tahfizhul Qur’an Ibnu Abbas Klaten</span> SMPIT-SMAIT-Ma’had Aly Tahun Ajaran 2022-2023</h2> -->
 					<img src="/img/infos/info-title.png" alt="" />
 				</div>
-				<div class="info-blocks flex flex-col gap-4 mb-4" transition:scale={{ delay: 1500 }}>
+				<div class="info-blocks flex flex-col gap-1.5 mb-2.5" transition:scale={{ delay: 1500 }}>
 					<div class="top flex justify-between">
 						<img src="/img/infos/info-tanggal.png" alt="" />
 						<img src="/img/infos/info-waktu.png" alt="" />
@@ -160,6 +160,18 @@
 						icon="fa-solid fa-location-dot"
 						on:click={() => openNewTab('https://maps.app.goo.gl/oXiRefHXZBYL3Cyg8')}
 					/>
+				</div>
+				<!-- Catatan -->
+				<div transition:fade={{ delay: 3800 }} class="text-[10px] mt-2.5 ml-9">
+					Catatan:
+					<ol class="list-inside list-decimal">
+						<li>Tiap undangan berlaku untuk 2 orang.</li>
+						<li>Harap membawa undangan saat menghadiri acara.</li>
+						<li>
+							Demi menjaga kekhidmatan acara, kami mohon Bapak-Ibu tidak membawa anak kecil masuk ke
+							ruangan wisuda.
+						</li>
+					</ol>
 				</div>
 			{/if}
 		</div>
