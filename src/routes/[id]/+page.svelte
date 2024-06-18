@@ -229,7 +229,10 @@
 				<Button
 					text="Buka Semua Foto"
 					icon="fa-solid fa-images"
-					on:click={() => openNewTab('TODO')}
+					on:click={() =>
+						openNewTab(
+							'https://drive.google.com/drive/folders/1K72IpbCb_G7xHflQBPrE-FBeEHnVVBLm?usp=sharing '
+						)}
 				/>
 			{/if}
 		</div>
