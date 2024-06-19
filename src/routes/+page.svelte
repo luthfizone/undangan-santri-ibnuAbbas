@@ -1,17 +1,9 @@
 <script lang="ts">
-	import Button from '$lib/components/Button.svelte';
-
-	import { fade, scale } from 'svelte/transition';
+	import { scale } from 'svelte/transition';
 	import Gallery from '$lib/components/Gallery.svelte';
 
 	// transition variables
-	let coverTransition: boolean = false;
 	let galeriTransition: boolean = false;
-	let invitationInfoTransition: boolean = false;
-	let susunanAcaraTransition: boolean = false;
-	let quoteTransition: boolean = false;
-	let penutup1Transition: boolean = false;
-	let penutup2Transition: boolean = false;
 
 	// gallery assets
 	const galleryAssetUrls = [
